@@ -14,7 +14,7 @@ export class PromotionService {
     return Promise.resolve(PROMOTIONS);
   }
 
-  getPromotion(id: number): Promise<Promotion>{
+  getPromotion(id: number): Promise<Promotion> {
     return Promise.resolve(PROMOTIONS.filter((promotion) => (promotion.id === id))[0]);
   }
 
