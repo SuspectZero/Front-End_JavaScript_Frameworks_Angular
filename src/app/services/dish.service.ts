@@ -10,6 +10,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class DishService {
@@ -22,6 +23,9 @@ export class DishService {
     return this.http.get(baseURL + 'dishes')
       .map(res => {
         return this.processHttpMsgService.extractData(res);
+      })
+      .catch(error => {
+        return this.processHttpMsgService.handleError(error);
       });
   }
 
@@ -29,6 +33,9 @@ export class DishService {
     return this.http.get(baseURL + 'dishes/' + id)
       .map(res => {
         return this.processHttpMsgService.extractData(res);
+      })
+      .catch(error => {
+        return this.processHttpMsgService.handleError(error);
       });
   }
 
@@ -36,6 +43,9 @@ export class DishService {
     return this.http.get(baseURL + 'dishes?featured=true')
       .map(res => {
         return this.processHttpMsgService.extractData(res)[0];
+      })
+      .catch(error => {
+        return this.processHttpMsgService.handleError(error);
       });
   }
 
@@ -43,6 +53,9 @@ export class DishService {
     return this.getDishes()
       .map(dishes => {
         return dishes.map(dish => dish.id);
+      })
+      .catch(error => {
+        return Observable.of(error);
       });
   }
 }
